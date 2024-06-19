@@ -1,0 +1,14 @@
+{
+  "name": "proyecto-citas-frontend",
+  "version": "1.0.0",
+  "description": "Front End de Proyecto Citas",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Gabriel Vargas",
+  "license": "ISC",
+  "dependencies": {
+    "@angular/cli": "^18.0.3"
+  }
+}
