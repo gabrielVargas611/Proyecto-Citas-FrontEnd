@@ -1,7 +1,7 @@
 export interface Usuarios{
-    usuariosID?: String
-    nombreDelUsuario: String
-    claveDelUsuario?: String
-    FechaDeCreacion?: String
-    ActualizadoEn?: String
+    usuariosID?: Number
+    nombreDelUsuario: string
+    claveDelUsuario?: string
+    FechaDeCreacion?: Date
+    ActualizadoEn?: Date
 }

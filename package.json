@@ -9,6 +9,7 @@
   "author": "Gabriel Vargas",
   "license": "ISC",
   "dependencies": {
-    "@angular/cli": "^18.0.3"
+    "@angular/cli": "^18.0.3",
+    "cors": "^2.8.5"
   }
 }

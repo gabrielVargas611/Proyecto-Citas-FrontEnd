@@ -1,1 +1,27 @@
-<p>usuarios works!</p>
+<br />
+<br />
+<h2>{{Titulo}}</h2>
+<ul>
+    @for (Usuario of Usuarios(); track Usuario.usuariosID) {
+      <li>
+        {{ Usuario.usuariosID }}
+        <input type="text"
+          (keydown.enter)="modificarUsuario(Usuario.usuariosID, $event)"
+          [value]="Usuario.nombreDelUsuario"
+        />
+        <button (click)="borrarUsuario(Usuario.usuariosID)">
+          Borra Usuario: {{ Usuario.nombreDelUsuario }}</button>
+      </li>
+    } @empty {
+      <li>Nada que mostrar.</li>
+    }
+    <li>
+      <input placeholder="Agregar"
+        type="text"(keydown.enter)="agregarUsuario($event)" />
+    </li>
+  </ul>
+<pre>
+    <code>
+        {{Usuarios() | json}}
+    </code>
+</pre>
