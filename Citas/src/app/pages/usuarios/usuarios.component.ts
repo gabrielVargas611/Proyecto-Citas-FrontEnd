@@ -1,37 +1,54 @@
 import { Component, signal } from '@angular/core';
-import {Usuarios} from '../../../Model/Usuarios'
-import {JsonPipe} from '@angular/common';
-import {HttpClient} from '@angular/common/http';
+import { Usuarios } from '../../../Model/Usuarios';
+import { JsonPipe } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-usuarios',
   standalone: true,
-  imports: [JsonPipe],
+  imports: [JsonPipe, FormsModule],
   templateUrl: './usuarios.component.html',
-  styleUrl: './usuarios.component.css'
+  styleUrl: './usuarios.component.css',
 })
 export class UsuariosComponent {
-  public Titulo = 'Administracion de Usuarios'
+  public Titulo = 'Administracion de Usuarios';
+  public xNombreUsuario: String = '';
+  public xUsuarioId: Number = 0;
+  public xClaveUsuario: String = '';
   public Usuarios = signal<Usuarios[]>([]);
 
-  constructor(private http: HttpClient){
+  constructor(private http: HttpClient) {
     this.metodoGetUsuarios();
   }
 
-  public metodoGetUsuarios(){
+  printInputs() {
+    console.log(
+      'Nombre del Usuario: ' +
+        this.xNombreUsuario +
+        '\n' +
+        'Usuario ID: ' +
+        this.xUsuarioId +
+        '\n' +
+        'Clave del Usuario: ' +
+        this.xClaveUsuario
+    );
+  }
+
+  public metodoGetUsuarios() {
     let cuerpo = {};
-    this.http.get('http://localhost/usuarios', cuerpo).subscribe((Usuarios) =>{
+    this.http.get('http://localhost/usuarios', cuerpo).subscribe((Usuarios) => {
       const arr = Usuarios as Usuarios[];
-      arr.forEach((Usuarios)=>{
+      arr.forEach((Usuarios) => {
         this.agregarUsuarioASenial(
           Usuarios.nombreDelUsuario,
           Usuarios.usuariosID,
           Usuarios.claveDelUsuario,
           Usuarios.FechaDeCreacion,
           Usuarios.ActualizadoEn
-        )
-      })
-    })
+        );
+      });
+    });
   }
 
   public agregarUsuarioASenial(
@@ -40,15 +57,15 @@ export class UsuariosComponent {
     claveDelUsuario?: string,
     FechaDeCreacion?: Date,
     ActualizadoEn?: Date
-  ){
-    let nuevoUsuario ={
+  ) {
+    let nuevoUsuario = {
       usuariosID: usuariosID,
       nombreDelUsuario: nombreDelUsuario,
       claveDelUsuario: claveDelUsuario,
       FechaDeCreacion: FechaDeCreacion,
-      ActualizadoEn: ActualizadoEn
+      ActualizadoEn: ActualizadoEn,
     };
-    this.Usuarios.update((Usuarios)=>[...Usuarios,nuevoUsuario]);
+    this.Usuarios.update((Usuarios) => [...Usuarios, nuevoUsuario]);
   }
 
   public agregarUsuario(event: Event) {
@@ -86,5 +103,4 @@ export class UsuariosComponent {
       );
     });
   }
-
 }
