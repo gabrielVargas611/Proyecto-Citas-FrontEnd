@@ -4,6 +4,7 @@ import { ServiciosComponent } from './pages/servicios/servicios.component';
 import { SolicitantesComponent } from './pages/solicitantes/solicitantes.component';
 import { SolicitudesComponent } from './pages/solicitudes/solicitudes.component';
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
+import {LoginComponent} from './pages/login/login.component';
 
 export const routes: Routes = [
     {
@@ -25,5 +26,9 @@ export const routes: Routes = [
     {
         path: 'usuarios',
         component: UsuariosComponent
+    },
+    {
+        path: 'login',
+        component: LoginComponent
     }
 ];
