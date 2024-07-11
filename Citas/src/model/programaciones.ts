@@ -1,8 +1,8 @@
 export interface Programaciones{
-    ProgramacionesId: string;
-    FechaInicioDisponible: string;
-    fechaFinalDisponible: string;
-    IdDelServicio: string;
-    FechaDeCreacion: string;
-    ActualizadoEn: string;
+    ProgramacionesId: number;
+    FechaInicioDisponible: Date;
+    FechaFinalDisponible: Date;
+    IdDelServicio: number;
+    FechaDeCreacion: Date;
+    ActualizadoEn: Date;
 }
