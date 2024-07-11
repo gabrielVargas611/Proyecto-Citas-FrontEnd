@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { Usuarios } from '../../../Model/Usuarios';
+import { Usuarios } from '../../../Model/usuarios';
 import { JsonPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
@@ -72,6 +72,7 @@ export class UsuariosComponent {
     let tag = event.target as HTMLInputElement;
     let cuerpo = {
       nombreDelUsuario: tag.value,
+      usuarioId: tag.value
     };
     this.http.post('http://localhost/usuarios', cuerpo).subscribe(() => {
       this.Usuarios.update((Usuarios) => [...Usuarios, cuerpo]);
