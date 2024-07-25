@@ -14,27 +14,26 @@
       Borra Usuario: {{ Usuario.nombreDelUsuario }}
     </button>
   </li>
+  <li>
+    <input type = "text" [value]="Usuario.claveDelUsuario">
+  </li>
+  <li>
+    <hr width="100%" color="black" size="2">
+  </li>
   } @empty {
   <li>Nada que mostrar.</li>
   }
   <li>
-    <input
-      placeholder="Agregar"
-      type="text"
-      (keydown.enter)="agregarUsuario($event)"
-    />
-  </li>
+    <button ((click))="agregarUsuario($event)">
+      Agregar Usuario
+    </button>
   <li>
-    <label for="nombreUsuario">Nombre del Usuario: </label>
-    <input id="nombreUsuario" [(ngModel)]="xNombreUsuario" type="text" />
+    <label for="nombreDelUsuario">Nombre del Usuario: </label>
+    <input id="nombreDelUsuario" [(ngModel)]="xNombreUsuario" type="text" />
   </li>
   <li>
     <label for="claveUsuario">Clave del Usuario: </label>
     <input id="claveUsuario" [(ngModel)]="xClaveUsuario" type="text" />
-  </li>
-  <li>
-    <label for="usuariosID">Clave del Usuario: </label>
-    <input id="usuariosID" [(ngModel)]="xClaveUsuario" type="number" />
   </li>
   <br />
   <button (click)="printInputs()">Imprimir en Consola</button>

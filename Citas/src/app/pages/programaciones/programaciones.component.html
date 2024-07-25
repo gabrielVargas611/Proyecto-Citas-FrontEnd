@@ -1,8 +1,54 @@
 <br />
 <br />
 <h2>{{Titulo}}</h2>
+<ul>
+    @for (Programacion of gProgramaciones(); track Programacion.ProgramacionesId) {
+    <li>
+      {{ Programacion.ProgramacionesId }}
+      <label>Fecha Inicial: </label>
+      <input
+        type="date"
+        (keydown.enter)="modificarProgramacion(Programacion.ProgramacionesId, $event)"
+        [value]="Programacion.FechaInicioDisponible"
+      />
+      <button (click)="borrarProgramacion(Programacion.ProgramacionesId)">
+        Borra Programacion: {{ Programacion.ProgramacionesId }}
+      </button>
+      <br>
+      <label>Fecha Final: </label>
+      <input type="date" [value]="Programacion.FechaFinalDisponible">
+      <br>
+      <label>Servicio: </label>
+      <input type="text" [value]="Programacion.IdDelServicio">
+    </li>
+    <li>
+      <hr width="100%" color="black" size="2">
+    </li>
+    } @empty {
+    <li>Nada que mostrar.</li>
+    }
+    <li>
+      <button ((click))="agregarProgramacion($event)">
+        Agregar Programacion
+      </button>
+    </li>
+    <li>
+      <label for="FechaInicioDisponible">Fecha Inicial: </label>
+      <input id="FechaInicioDisponible" [(ngModel)]="xFechaInicioDisponible" type="date" />
+    </li>
+    <li>
+        <label for="FechaFinalDisponible">Fecha Final: </label>
+        <input id="FechaFinalDisponible" [(ngModel)]="xFechaFinalDisponible" type="date" />
+      </li>
+      <li>
+        <label for="IdDelServicio">Servicio: </label>
+        <input id="IdDelServicio" [(ngModel)]="xIdDelServicio" type="text" />
+      </li>
+    <br />
+    <button (click)="printInputs()">Imprimir en Consola</button>
+  </ul>
 <pre>
     <code>
-        {{Programaciones() | json}}
+        {{gProgramaciones() | json}}
     </code>
 </pre>

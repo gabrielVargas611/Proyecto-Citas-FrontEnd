@@ -43,9 +43,7 @@ export class UsuariosComponent {
         this.agregarUsuarioASenial(
           Usuarios.nombreDelUsuario,
           Usuarios.usuariosID,
-          Usuarios.claveDelUsuario,
-          Usuarios.FechaDeCreacion,
-          Usuarios.ActualizadoEn
+          Usuarios.claveDelUsuario
         );
       });
     });
@@ -54,16 +52,12 @@ export class UsuariosComponent {
   public agregarUsuarioASenial(
     nombreDelUsuario: string,
     usuariosID?: Number,
-    claveDelUsuario?: string,
-    FechaDeCreacion?: Date,
-    ActualizadoEn?: Date
+    claveDelUsuario?: string
   ) {
     let nuevoUsuario = {
       usuariosID: usuariosID,
       nombreDelUsuario: nombreDelUsuario,
-      claveDelUsuario: claveDelUsuario,
-      FechaDeCreacion: FechaDeCreacion,
-      ActualizadoEn: ActualizadoEn,
+      claveDelUsuario: claveDelUsuario
     };
     this.Usuarios.update((Usuarios) => [...Usuarios, nuevoUsuario]);
   }
@@ -72,6 +66,7 @@ export class UsuariosComponent {
     let tag = event.target as HTMLInputElement;
     let cuerpo = {
       nombreDelUsuario: tag.value,
+      claveUsuario: tag.value,
       usuarioId: tag.value
     };
     this.http.post('http://localhost/usuarios', cuerpo).subscribe(() => {

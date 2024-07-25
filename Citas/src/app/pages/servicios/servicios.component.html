@@ -1,1 +1,68 @@
-<p>servicios works!</p>
+<br />
+<br />
+<h2>{{Titulo}}</h2>
+<ul>
+    @for (Servicio of gServicios(); track Servicio.serviciosId) {
+    <li>
+      {{ Servicio.serviciosId }}
+      <label>Nombre del Servicio: </label>
+      <input
+        type="text"
+        (keydown.enter)="modificarServicio(Servicio.serviciosId, $event)"
+        [value]="Servicio.nombreDelServicio"
+      />
+      <button (click)="borrarServicio(Servicio.serviciosId)">
+        Borra Usuario: {{ Servicio.serviciosId }}
+      </button>
+      <br>
+      <label>Descripcion del Servicio: </label>
+      <input type="text" [value]="Servicio.descripcionDelServicio" size="100%">
+      <br>
+      <label>Telefono: </label>
+      <input type="text" [value]="Servicio.telefonoDeContacto">
+      <br>
+      <label>Correo: </label>
+      <input type="text" [value]="Servicio.correoDeContacto">
+      <br>
+      <label>Experto: </label>
+      <input type="text" [value]="Servicio.nombreDelExperto">
+    </li>
+    <li>
+      <hr width="100%" color="black" size="2">
+    </li>
+    } @empty {
+    <li>Nada que mostrar.</li>
+    }
+    <li>
+      <button ((click))="agregarServicio($event)">
+        Agregar Servicio
+      </button>
+    </li>
+    <li>
+      <label for="nombreServicio">Nombre del Servicio: </label>
+      <input id="nombreServicio" [(ngModel)]="xnombreDelServicio" type="text" />
+    </li>
+    <li>
+        <label for="nombreDescripcion">Descripcion del Servicio: </label>
+        <input id="nombreDescripcion" [(ngModel)]="xDescripcionDelServicio" type="text" />
+      </li>
+      <li>
+        <label for="telefonoServicio">Telefono del Servicio: </label>
+        <input id="telefonoServicio" [(ngModel)]="xTelefonoDeContacto" type="text" />
+      </li>
+      <li>
+        <label for="correoServicio">Correo del Servicio: </label>
+        <input id="correoServicio" [(ngModel)]="xCorreoDeContacto" type="text" />
+      </li>
+      <li>
+        <label for="nombreExperto">Nombre del Experto: </label>
+        <input id="nombreExperto" [(ngModel)]="xNombreDelExperto" type="text" />
+      </li>
+    <br />
+    <button (click)="printInputs()">Imprimir en Consola</button>
+  </ul>
+<pre>
+    <code>
+        {{gServicios() | json}}
+    </code>
+</pre>

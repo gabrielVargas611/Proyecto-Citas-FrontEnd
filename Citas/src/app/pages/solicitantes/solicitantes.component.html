@@ -1,1 +1,61 @@
-<p>solicitantes works!</p>
+<br />
+<br />
+<h2>{{Titulo}}</h2>
+<ul>
+    @for (Solicitante of gSolicitantes(); track Solicitante.solicitantesId) {
+    <li>
+      {{ Solicitante.solicitantesId }}
+      <label>Nombre del Solicitante: </label>
+      <input
+        type="text"
+        (keydown.enter)="modificarSolicitante(Solicitante.solicitantesId, $event)"
+        [value]="Solicitante.nombreDelSolicitante"
+      />
+      <button (click)="borrarSolicitante(Solicitante.solicitantesId)">
+        Borra Usuario: {{ Solicitante.solicitantesId }}
+      </button>
+      <br>
+      <label>Telefono: </label>
+      <input type="text" [value]="Solicitante.telefonoDelSolicitante">
+      <br>
+      <label>Correo: </label>
+      <input type="text" [value]="Solicitante.correoDelSolicitante">
+      <br>
+      <label>Clave: </label>
+      <input type="text" [value]="Solicitante.claveDelSolicitante">
+    </li>
+    <li>
+      <hr width="100%" color="black" size="2">
+    </li>
+    } @empty {
+    <li>Nada que mostrar.</li>
+    }
+    <li>
+      <button ((click))="agregarSolicitante($event)">
+        Agregar Solicitante
+      </button>
+    </li>
+    <li>
+      <label for="nombreDelSolicitante">Nombre del Solicitante: </label>
+      <input id="nombreDelSolicitante" [(ngModel)]="xnombreDelSolicitante" type="text" />
+    </li>
+      <li>
+        <label for="telefonoDelSolicitante">Telefono: </label>
+        <input id="telefonoDelSolicitante" [(ngModel)]="xTelefonoDelSolicitante" type="text" />
+      </li>
+      <li>
+        <label for="correoDelSolicitante">Correo: </label>
+        <input id="correoDelSolicitante" [(ngModel)]="xCorreoDelSOlicitante" type="text" />
+      </li>
+      <li>
+        <label for="claveDelSolicitante">Clave: </label>
+        <input id="claveDelSolicitante" [(ngModel)]="xClaveDelSolicitante" type="text" />
+      </li>
+    <br />
+    <button (click)="printInputs()">Imprimir en Consola</button>
+  </ul>
+<pre>
+    <code>
+        {{gSolicitantes() | json}}
+    </code>
+</pre>
