@@ -1,6 +1,6 @@
 export interface Servicios{
     serviciosId?: Number,
-    nombreDelServicio: string,
+    nombreDelServicio?: string,
     descripcionDelServicio?: string,
     telefonoDeContacto?: string,
     correoDeContacto?: string,

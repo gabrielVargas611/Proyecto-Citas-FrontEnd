@@ -3,6 +3,7 @@ import {Servicios} from '../../../Model/Servicios';
 import {JsonPipe} from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -22,8 +23,13 @@ export class ServiciosComponent {
   public xNombreDelExperto: string = '';
   public gServicios = signal<Servicios[]>([]);
 
-  constructor(private http: HttpClient) {
-    this.metodoGetServicios();
+  constructor(private http: HttpClient,private router: Router) {
+    if(!true){
+      this.router.navigate(['login']);
+    }
+    else{
+      this.metodoGetServicios();
+    }
   }
 
   printInputs() {
@@ -61,7 +67,7 @@ export class ServiciosComponent {
   }
 
   public agregarServicioASenial(
-    nombreDelServicio: string,
+    nombreDelServicio?: string,
     serviciosId?: Number,
     descripcionDelServicio?: string,
     correoDeContacto?: string,
@@ -82,12 +88,12 @@ export class ServiciosComponent {
   public agregarServicio(event: Event) {
     let tag = event.target as HTMLInputElement;
     let cuerpo = {
-      sevicioId: tag.value,
-      nombreDelServicio: tag.value,
-      descripcionDelServicio: tag.value,
-      telefonoDeContacto: tag.value,
-      correoDeContato: tag.value,
-      nombreDelExperto: tag.value
+      servicioId: this.xServiciosId,
+      nombreDelServicio: this.xnombreDelServicio,
+      descripcionDelServicio: this.xDescripcionDelServicio,
+      telefonoDeContacto: this.xTelefonoDeContacto,
+      correoDeContato: this.xCorreoDeContacto,
+      nombreDelExperto: this.xNombreDelExperto
     };
     this.http.post('http://localhost/servicios', cuerpo).subscribe(() => {
       this.gServicios.update((Servicios) => [...Servicios, cuerpo]);

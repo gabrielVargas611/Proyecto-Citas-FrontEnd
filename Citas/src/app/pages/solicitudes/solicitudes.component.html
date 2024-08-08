@@ -1,1 +1,67 @@
-<p>solicitudes works!</p>
+<br />
+<br />
+<h2>{{Titulo}}</h2>
+<ul>
+    @for (Solicitud of gSolicitudes(); track Solicitud.solicitudesId) {
+    <li>
+      {{ Solicitud.solicitudesId }}
+      <button (click)="borrarSolicitud(Solicitud.solicitudesId)">
+        Borra Solicitud: {{ Solicitud.solicitudesId }}
+      </button>
+      <br>
+      <label>Descripcion: </label>
+      <input type="text" 
+      (keydown.enter)="modificarSolicitud(Solicitud.solicitudesId, $event)"
+      [value]="Solicitud.descripcionDeSolicitid" size="100%">
+      <br>
+      <label>Fecha: </label>
+      <input type="datetime" 
+      (keydown.enter)="modificarSolicitud(Solicitud.solicitudesId, $event)"
+      [value]="Solicitud.fechaSolicitud">
+      <br>
+      <label>Servicio: </label>
+      <input type="text" 
+      (keydown.enter)="modificarSolicitud(Solicitud.solicitudesId, $event)"
+      [value]="Solicitud.IdDelservicio">
+      <br>
+      <label>Solicitante: </label>
+      <input type="number" 
+      (keydown.enter)="modificarSolicitud(Solicitud.solicitudesId, $event)"
+      [value]="Solicitud.IdDelsolicitante">
+      
+    </li>
+    <li>
+      <hr width="100%" color="black" size="2">
+    </li>
+    } @empty {
+    <li>Nada que mostrar.</li>
+    }
+    <li>
+    </li>
+    <li>
+      <label for="descripcionDeSolicitid">Descripcion de Solicitud: </label>
+      <input id="descripcionDeSolicitid" [(ngModel)]="descripcionDeSolicitid" type="text" />
+    </li>
+      <li>
+        <label for="fechaSolicitud">Fecha: </label>
+        <input id="fechaSolicitud" [(ngModel)]="fechaSolicitud" type="datetime" />
+      </li>
+      <li>
+        <label for="IdDelservicio">Servicio: </label>
+        <input id="IdDelservicio" [(ngModel)]="IdDelservicio" type="number" />
+      </li>
+      <li>
+        <label for="IdDelsolicitante">Solicitante: </label>
+        <input id="IdDelsolicitante" [(ngModel)]="IdDelsolicitante" type="number" />
+      </li>
+      <button (click)="agregarSolicitud($event)">
+        Agregar Solicitud
+      </button>
+    <br />
+    <button (click)="printInputs()">Imprimir en Consola</button>
+  </ul>
+<pre>
+    <code>
+        {{gSolicitudes() | json}}
+    </code>
+</pre>

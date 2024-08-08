@@ -3,6 +3,7 @@ import { Usuarios } from '../../../Model/usuarios';
 import { JsonPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-usuarios',
@@ -18,8 +19,13 @@ export class UsuariosComponent {
   public xClaveUsuario: String = '';
   public Usuarios = signal<Usuarios[]>([]);
 
-  constructor(private http: HttpClient) {
-    this.metodoGetUsuarios();
+  constructor(private http: HttpClient, private router: Router) {
+    if(!true){
+      this.router.navigate(['login']);
+    }
+    else{
+      this.metodoGetUsuarios();
+    }
   }
 
   printInputs() {

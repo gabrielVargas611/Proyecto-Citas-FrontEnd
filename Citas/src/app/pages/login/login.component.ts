@@ -1,9 +1,11 @@
 import { Component, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [],
+  imports: [FormsModule, JsonPipe],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -12,10 +14,15 @@ export class LoginComponent {
   public pass = signal('');
 
   public guardarUsuario(event: Event){
-    let tagUser = event.target as HTMLInputElement;
-    let tagpass = event.target as HTMLInputElement;
-    localStorage.setItem('user',tagUser.value);
-    localStorage.setItem('pass',tagpass.value);
+    /*let cuerpo ={
+      user: this.user,
+      pass: this.pass
+    }*/
+    localStorage.setItem('user',this.user());
+    localStorage.setItem('pass',this.pass());
+  }
+
+  constructor(){
     this.user.set(String(localStorage.getItem('user')));
     this.pass.set(String(localStorage.getItem('pass')));
   }

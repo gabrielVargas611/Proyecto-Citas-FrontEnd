@@ -7,7 +7,7 @@
       {{ Programacion.ProgramacionesId }}
       <label>Fecha Inicial: </label>
       <input
-        type="date"
+        type="datetime"
         (keydown.enter)="modificarProgramacion(Programacion.ProgramacionesId, $event)"
         [value]="Programacion.FechaInicioDisponible"
       />
@@ -16,7 +16,7 @@
       </button>
       <br>
       <label>Fecha Final: </label>
-      <input type="date" [value]="Programacion.FechaFinalDisponible">
+      <input type="datetime" [value]="Programacion.FechaFinalDisponible">
       <br>
       <label>Servicio: </label>
       <input type="text" [value]="Programacion.IdDelServicio">
@@ -34,11 +34,11 @@
     </li>
     <li>
       <label for="FechaInicioDisponible">Fecha Inicial: </label>
-      <input id="FechaInicioDisponible" [(ngModel)]="xFechaInicioDisponible" type="date" />
+      <input id="FechaInicioDisponible" [(ngModel)]="xFechaInicioDisponible" type="text" />
     </li>
     <li>
         <label for="FechaFinalDisponible">Fecha Final: </label>
-        <input id="FechaFinalDisponible" [(ngModel)]="xFechaFinalDisponible" type="date" />
+        <input id="FechaFinalDisponible" [(ngModel)]="xFechaFinalDisponible" type="text" />
       </li>
       <li>
         <label for="IdDelServicio">Servicio: </label>

@@ -1,7 +1,7 @@
 export interface Solicitudes{
-    solicitudesId: number;
+    solicitudesId?: Number;
     descripcionDeSolicitid: string;
-    fechaSolicitud: Date;
-    IdDelservicio: number;
-    IdDelsolicitante: number;
+    fechaSolicitud?: Date;
+    IdDelservicio?: Number;
+    IdDelsolicitante?: Number;
 }

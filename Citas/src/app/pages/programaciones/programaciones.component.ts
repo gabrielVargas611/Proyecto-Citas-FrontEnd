@@ -3,6 +3,7 @@ import { Programaciones } from '../../../Model/Programaciones';
 import { JsonPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-programaciones',
@@ -19,8 +20,15 @@ export class ProgramacionesComponent {
   public xIdDelServicio: Number = 0;
   public gProgramaciones = signal<Programaciones[]>([]);
 
-  constructor(private http: HttpClient) {
-    this.metodoGetProgramaciones();
+  constructor(private http: HttpClient, private router: Router) {
+    if(!true){
+      this.router.navigate(['login']);
+    }
+    else{
+      this.metodoGetProgramaciones();
+      console.log("test");
+      this.printInputs();
+    }
   }
 
   printInputs() {
@@ -67,16 +75,16 @@ export class ProgramacionesComponent {
   }
 
   public agregarProgramacion(event: Event) {
-    /*let tag = event.target as HTMLInputElement;
+    let tag = event.target as HTMLInputElement;
     let cuerpo = {
-      IdDelServicio: tag.value,
-      ProgramacionesId: tag.value,
-      FechaInicioDisponible: tag.value,
-      FechaFinalDisponible: tag.value
+      IdDelServicio: this.xIdDelServicio,
+      ProgramacionesId: this.xProgramacionesId,
+      FechaInicioDisponible: this.xFechaInicioDisponible,
+      FechaFinalDisponible: this.xFechaFinalDisponible
     };
     this.http.post('http://localhost/programaciones', cuerpo).subscribe(() => {
       this.gProgramaciones.update((Programacion) => [...Programacion, cuerpo]);
-    });*/
+    });
   }
 
   public modificarProgramacion(Id: any, event: Event) {

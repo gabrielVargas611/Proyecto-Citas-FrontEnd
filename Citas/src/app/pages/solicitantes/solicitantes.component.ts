@@ -3,7 +3,7 @@ import {  Solicitantes } from "../../../Model/Solicitantes"
 import {JsonPipe} from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-solicitantes',
   standalone: true,
@@ -13,29 +13,35 @@ import { FormsModule } from '@angular/forms';
 })
 export class SolicitantesComponent {
   public Titulo = 'Administracion de Solicitamtes';
-  public xSolicitanteId: Number = 0;
-  public xnombreDelSolicitante: string = '';
-  public xTelefonoDelSolicitante: string = '';
-  public xCorreoDelSOlicitante: string = '';
-  public xClaveDelSolicitante: string = '';
+  public solicitantesId: Number = 0;
+  public nombreDelSolicitante: string = '';
+  public telefonoDelSolicitante: string = '';
+  public correoDelSolicitante: string = '';
+  public claveDelSolicitante: string = '';
   public gSolicitantes = signal<Solicitantes[]>([]);
 
-  constructor(private http: HttpClient) {
-    this.metodoGetSolicitante();
+  constructor(private http: HttpClient, private router: Router) {
+    if(!true){
+      this.router.navigate(['login']);
+    }
+    else{
+      this.metodoGetSolicitante();
+    }
+
   }
 
   printInputs() {
     console.log(
       'Info: ' +
-        this.xSolicitanteId +
+        this.solicitantesId +
         '\n' +
-        this.xnombreDelSolicitante +
+        this.nombreDelSolicitante +
         '\n' +
-        this.xTelefonoDelSolicitante +
+        this.telefonoDelSolicitante +
         '\n' +
-        this.xCorreoDelSOlicitante +
+        this.correoDelSolicitante +
         '\n' +
-        this.xClaveDelSolicitante
+        this.claveDelSolicitante
     );
   }
 
@@ -73,18 +79,15 @@ export class SolicitantesComponent {
   }
 
   public agregarSolicitante(event: Event) {
-   /* let tag = event.target as HTMLInputElement;
     let cuerpo = {
-      sevicioId: tag.value,
-      nombreDelServicio: tag.value,
-      descripcionDelServicio: tag.value,
-      telefonoDeContacto: tag.value,
-      correoDeContato: tag.value,
-      nombreDelExperto: tag.value
+      nombreDelSolicitante: this.nombreDelSolicitante,
+      telefonoDelSolicitante: this.telefonoDelSolicitante,
+      correoDelSolicitante: this.correoDelSolicitante,
+      claveDelSolicitante: this.claveDelSolicitante,
     };
-    this.http.post('http://localhost/servicios', cuerpo).subscribe(() => {
-      this.gServicios.update((Servicios) => [...Servicios, cuerpo]);
-    });*/
+    this.http.post('http://localhost/solicitantes', cuerpo).subscribe(() => {
+      this.gSolicitantes.update((Solicitantes) => [...Solicitantes, cuerpo]);
+    });
   }
 
   public modificarSolicitante(Id: any, event: Event) {
