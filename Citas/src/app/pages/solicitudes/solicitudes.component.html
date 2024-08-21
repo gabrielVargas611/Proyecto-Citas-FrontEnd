@@ -11,24 +11,23 @@
       <br>
       <label>Descripcion: </label>
       <input type="text" 
-      (keydown.enter)="modificarSolicitud(Solicitud.solicitudesId, $event)"
       [value]="Solicitud.descripcionDeSolicitid" size="100%">
       <br>
       <label>Fecha: </label>
       <input type="datetime" 
-      (keydown.enter)="modificarSolicitud(Solicitud.solicitudesId, $event)"
       [value]="Solicitud.fechaSolicitud">
       <br>
       <label>Servicio: </label>
       <input type="text" 
-      (keydown.enter)="modificarSolicitud(Solicitud.solicitudesId, $event)"
       [value]="Solicitud.IdDelservicio">
       <br>
       <label>Solicitante: </label>
       <input type="number" 
-      (keydown.enter)="modificarSolicitud(Solicitud.solicitudesId, $event)"
       [value]="Solicitud.IdDelsolicitante">
-      
+      <br>
+      <button (click)="buscar(Solicitud.solicitudesId)">Editar</button>
+      <br>
+      <button (click)="SolicitudesReporte()">Reporte</button>
     </li>
     <li>
       <hr width="100%" color="black" size="2">
@@ -37,6 +36,10 @@
     <li>Nada que mostrar.</li>
     }
     <li>
+    </li>
+    <li>
+      <label for="solicitudesId">ID: </label>
+      <input id="solicitudesId" [(ngModel)]="solicitudesId" type="number" readonly />
     </li>
     <li>
       <label for="descripcionDeSolicitid">Descripcion de Solicitud: </label>
@@ -57,6 +60,10 @@
       <button (click)="agregarSolicitud($event)">
         Agregar Solicitud
       </button>
+      <button (click)="modificar2(solicitudesId,$event)">
+        Editar 
+      </button>
+      <br>
     <br />
     <button (click)="printInputs()">Imprimir en Consola</button>
   </ul>

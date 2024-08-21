@@ -21,7 +21,7 @@ export class ProgramacionesComponent {
   public gProgramaciones = signal<Programaciones[]>([]);
 
   constructor(private http: HttpClient, private router: Router) {
-    if(!true){
+    if(!false){
       this.router.navigate(['login']);
     }
     else{

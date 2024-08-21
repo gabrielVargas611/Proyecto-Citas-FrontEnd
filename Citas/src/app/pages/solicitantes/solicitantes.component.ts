@@ -21,7 +21,7 @@ export class SolicitantesComponent {
   public gSolicitantes = signal<Solicitantes[]>([]);
 
   constructor(private http: HttpClient, private router: Router) {
-    if(!true){
+    if(!false){
       this.router.navigate(['login']);
     }
     else{

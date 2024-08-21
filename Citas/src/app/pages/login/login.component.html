@@ -3,9 +3,11 @@
 <div class="login-page">
     <div class="form">
       <form class="login-form">
-        <input type="text" placeholder="username" [(ngModel)]="user" name="user"/>
-        <input type="password" placeholder="password" [(ngModel)]="pass" name="pass"/>
-        <button (click)="guardarUsuario($event)">login</button>
+        <input type="text" placeholder="username" [(ngModel)]="nombreDelUsuario" name="user"/>
+        <input type="password" placeholder="password" [(ngModel)]="claveDelUsuario" name="pass"/>
+        <button (click)="autenticar()">login</button>
+        <br>
+        <button (onclick)="desautenticar()">Deslogear</button>
         <!-- <p class="message">Not registered? <a href="#">Create an account</a></p> -->
       </form>
     </div>

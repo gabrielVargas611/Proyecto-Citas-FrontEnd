@@ -4,6 +4,7 @@ import {JsonPipe} from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import {jsPDF} from 'jspdf';
 
 @Component({
   selector: 'app-solicitudes',
@@ -22,11 +23,12 @@ export class SolicitudesComponent {
   public gSolicitudes = signal<Solicitudes[]>([]);
 
   constructor(private http: HttpClient, private router: Router) {
-    if(!true){
+    if(!false){
       this.router.navigate(['login']);
     }
     else{
       this.metodoGetSolicitud();
+
     }
 
   }
@@ -102,7 +104,7 @@ export class SolicitudesComponent {
       this.gSolicitudes.update((lSolicitud) => {
         return lSolicitud.map((Solicitud) => {
           if (Solicitud.solicitudesId === Id) {
-            return { ...Solicitud, Servicios: tag.value };
+            return { ...Solicitud, Solicitud: tag.value };
           }
           return Solicitud;
         });
@@ -111,7 +113,7 @@ export class SolicitudesComponent {
     this.printInputs();
   }
 
-  public modificarSolicitud2(Id: any, event: Event) {
+  public modificar2(Id: any,event: Event) {
     let cuerpo = {
       solicitudesID: this.solicitudesId,
       descripcionDeSolicitid: this.descripcionDeSolicitid,
@@ -119,11 +121,32 @@ export class SolicitudesComponent {
       IdDelservicio: this.IdDelservicio,
       IdDelsolicitante: this.IdDelsolicitante,
     };
-    this.http.put('http://localhost/solicitudes/', cuerpo).subscribe(() => {
-      this.gSolicitudes.update((Solicitudes) => [...Solicitudes, cuerpo]);
+    this.http.put('http://localhost/solicitudes/'+ Id, cuerpo).subscribe(() => {
+      this.gSolicitudes.update((Solicitudes) => {
+        return Solicitudes.map((Solicitud) => {
+          if (Solicitud.solicitudesId === Id) {
+            console.log(cuerpo);
+            return { ...Solicitud, cuerpo };
+          }
+          return Solicitud;
+        });
+      });
     });
     this.printInputs();
-    window.location.reload();
+  }
+
+  public buscar(Id: any) {
+    this.http.get('http://localhost/solicitudes/' + Id).subscribe((Solicitud) => {
+      const arr = Solicitud as Solicitudes[];
+      arr.forEach((Solicitudes) => {
+         this.descripcionDeSolicitid= Solicitudes.descripcionDeSolicitid,
+          this.solicitudesId=Solicitudes.solicitudesId,
+          this.fechaSolicitud=Solicitudes.fechaSolicitud,
+          this.IdDelservicio=Solicitudes.IdDelservicio,
+         this.IdDelsolicitante= Solicitudes.IdDelsolicitante
+      });
+    });
+    this.printInputs();
   }
 
   public borrarSolicitud(Id: any) {
@@ -133,5 +156,41 @@ export class SolicitudesComponent {
         Solicitudes.filter((rSOlicitudes) => rSOlicitudes.solicitudesId !== Id)
       );
     });
+  }
+
+  public SolicitudesReporte(){
+    const doc = new jsPDF();
+
+    const Solicitud = [
+      { Name: "SolicitudID", value: this.solicitudesId },
+      { Name: "Descripcion", value: this.descripcionDeSolicitid },
+      { Name: "Fecha", value: this.fechaSolicitud },
+      { Name: "Servicio", value: this.IdDelservicio },
+      { Name: "Solicitante", value: this.IdDelsolicitante },
+    ];
+
+    // Encabezado
+    doc.setFontSize(16);
+    doc.text("Reporte de Solicitud", 10, 10);
+    doc.setFontSize(12);
+    doc.text("Fecha: " + new Date().toLocaleDateString(), 10, 20);
+
+    // Tabla de citas
+    let startY = 30;
+    Solicitud.forEach((value) => {
+        if (startY > 280) { // Si la página está llena, crear una nueva
+            doc.addPage();
+            startY = 20;
+        }
+        doc.text(`Solicitud ${value}`, 10, startY);
+        doc.text(`Descripcion: ${value}`, 10, startY + 10);
+        doc.text(`Fecha: ${value}`, 10, startY + 20);
+        doc.text(`Servicio: ${value}`, 10, startY + 30);
+        doc.text(`Solicitante: ${value}`, 10, startY + 30);
+        startY += 40;
+    });
+
+    // Guardar el documento
+    doc.save("Solicitudes.pdf");
   }
 }

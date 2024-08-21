@@ -4,6 +4,7 @@ import {JsonPipe} from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import {jsPDF} from 'jspdf';
 
 
 @Component({
@@ -21,10 +22,11 @@ export class ServiciosComponent {
   public xTelefonoDeContacto: string = '';
   public xCorreoDeContacto: string = '';
   public xNombreDelExperto: string = '';
+  //public Fecha: string='';
   public gServicios = signal<Servicios[]>([]);
 
   constructor(private http: HttpClient,private router: Router) {
-    if(!true){
+    if(!false){
       this.router.navigate(['login']);
     }
     else{
@@ -125,4 +127,35 @@ export class ServiciosComponent {
       );
     });
   }
+
+public generarPDF(){
+  const doc = new jsPDF();
+  let Fecha : String= "";
+  const appointments = [
+    { date: "2024-08-15", time: "10:00 AM", client: "Cliente 1" },
+    { date: "2024-08-16", time: "11:00 AM", client: "Cliente 2" },
+    { date: "2024-08-17", time: "02:00 PM", client: "Cliente 3" },
+  ];
+  // Encabezado
+  doc.setFontSize(25);
+  doc.text("Calendarización de Citas", 10, 10);
+  doc.setFontSize(12);
+  doc.text("Fecha: " + new Date().toLocaleDateString(), 10, 20);
+  // Tabla de citas
+  let startY = 30;
+  appointments.forEach((appointment,index)=>{
+    if (startY > 280) { // Si la página está llena, crear una nueva
+      doc.addPage();
+      startY = 20;
+  }
+  doc.text(`Cita ${index + 1}`, 10, startY);
+  doc.text(`Fecha: ${appointment.date}`, 10, startY + 10);
+  doc.text(`Hora: ${appointment.time}`, 10, startY + 20);
+  doc.text(`Cliente: ${appointment.client}`, 10, startY + 30);
+  startY += 40;
+  });
+    // Guardar el documento
+    doc.save("calendarizacion.pdf");
+}
+  
 }
