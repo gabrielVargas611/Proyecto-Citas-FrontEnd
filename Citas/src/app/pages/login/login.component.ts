@@ -53,7 +53,7 @@ export class LoginComponent {
     this.http.post('http://localhost/usuarios/desautenticar', cuerpo).subscribe((token) => {
       localStorage.setItem('Token', "");
       localStorage.setItem('Rol', "");
-      localStorage.setItem('Usuario', "");
+      localStorage.setItem('nombreDelUsuario', "");
     });
     this.router.navigate(['']);
   }
